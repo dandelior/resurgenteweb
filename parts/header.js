@@ -2,7 +2,6 @@ import Link from 'next/link';
 
 class Header extends React.Component {
     // constructor(props) {
-
     // }
 
     render() {
@@ -34,10 +33,10 @@ class Header extends React.Component {
                         </button> 
                         <div className="menu">
                             <nav className="the-menu">
-                                <Link href="/" className=""><a>Inicio</a></Link>
-                                <Link href="/tag/fe" className=""><a>Fe</a></Link>
-                                <Link href="/tag/vida" className=""><a>Vida</a></Link>
-                                <Link href="/tag/cultura" className=""><a>Cultura</a></Link>
+                                <Link href="/"><a>Inicio</a></Link>
+                                <Link href="/tag/fe"><a>Fe</a></Link>
+                                <Link href="/tag/vida"><a>Vida</a></Link>
+                                <Link href="/tag/cultura"><a>Cultura</a></Link>
                             </nav>
                         </div>
                     </div>
