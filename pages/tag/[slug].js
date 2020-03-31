@@ -3,7 +3,7 @@ import Header from '../../parts/header'
 import HeadMeta from '../../parts/head-meta'
 import Footer from '../../parts/footer';
 import Link from 'next/link';
-// import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router';
 import groq from 'groq';
 import client from '../../client';
 import imageUrlBuilder from '@sanity/image-url';
@@ -13,18 +13,21 @@ function urlFor (source) {
     return imageUrlBuilder(client).image(source)
 }
 
-const Tag = (props) => {
+function Tag(props) {
 
-    // const router = useRouter()
-    // const routerSlug = router.query.slug
-    // const { articulos = [] } = props
-    // console.log(articulos);
-    const { titulo = 'Missing title', nombreAutor = 'Missing name' } = props
+    const { 
+        articulos  = [] 
+    } = props
+
+    const nombreTag = articulos[0].nombre
+    const articulosTag = articulos[0].articulo
+
+    // console.log(articulosTag);
 
     return (
         <>
             <Head>
-                <title>{titulo} — Resurgente</title>
+                <title>#{nombreTag} — Resurgente</title>
                 <HeadMeta/>
                 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Merriweather:300,300i,700,700i&display=swap" rel="stylesheet"></link>
                 <link href="/css/hamburger.min.css" rel="stylesheet"></link>
@@ -36,29 +39,37 @@ const Tag = (props) => {
             <section className="grid-articles grid-on-category">
                 <div className="grid-articles-wrapper pd-lr">
                     <header className="section-header">
-                        <h6 className="section-title">#tag</h6>
+                        <h6 className="section-title">#{nombreTag}</h6>
                     </header>
                     <div className="articles-grid">
 
-                        <div className="item">
-                            <a href="#">
-                                <div className="img" style={{ backgroundImage: 'url()' }}></div>
-                            </a>
-                            <div className="data">
-                                {/* <h6 className="date-tags">
-                                    <a href="#" title="name" className="tag tag-id slug">#tag</a>
-                                </h6> */}
-                                <a href="#">
-                                    <h3 className="article-title">
-                                        Titulo
-                                    </h3>
-                                </a>
-                                <h6 className="author">
-                                    por
-                                    <a href="#">nombre del autor</a>
-                                </h6>
-                            </div>
-                        </div>
+                        {articulosTag.map(
+                            ({ _id, titulo, fecha, imagenDestacada, nombreAutor, slugAutor, slug }) =>
+                                slug && (
+                                    <div className="item" key={slug.current}>
+                                        <Link href="/[slug]" as={`/${slug.current}`}>
+                                            <a>
+                                                <div className="img" style={{ backgroundImage: 'url('+urlFor(imagenDestacada).url()+')' }}></div>
+                                            </a>
+                                        </Link>
+                                        <div className="data">
+                                            <Link href="/[slug]" as={`/${slug.current}`} key={slug.current}>
+                                                <a>
+                                                    <h3 className="article-title">
+                                                        {titulo}
+                                                    </h3>
+                                                </a>
+                                            </Link>
+                                            <h6 className="author">
+                                                {moment(fecha).locale('es').format('LL')} — por <Link href="/autor/[slugAutor]" as={`/autor/${slugAutor.current}`}>
+                                                    <a>{nombreAutor}</a>
+                                                </Link>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                )
+                        )}
+
                     </div>
 
                 </div>
@@ -70,20 +81,22 @@ const Tag = (props) => {
     )
 }
 
-// Tag.getInitialProps = async function(context) {
-//     // It's important to default the slug so that it doesn't return "undefined"
-//     const { slug = "" } = context.query
-//     return await client.fetch(`
-//       *[_type == "articulo" && slug.current == $slug][0]
-//     `, { slug })
-// }
+const theQuery = `
+    *[_type == "tag" && slug.current == $slug] {
+        nombre,
+        "articulo": *[_type == "articulo" && references(^._id)] | order(_updatedAt desc){
+            titulo,
+            fecha,
+            imagenDestacada,
+            "nombreAutor": autor->nombre, 
+            "slugAutor": autor->slug, 
+            slug
+        }
+    }
+`
 
-Tag.getInitialProps = async function(context) {
-    // It's important to default the slug so that it doesn't return "undefined"
-    const { slug = "" } = context.query
-    return await client.fetch(`
-      *[_type == "articulo" && slug.current == $slug][0]{titulo, "nombreAutor": autor->nombre}
-    `, { slug })
-}
+Tag.getInitialProps = async ({ query: { slug } }) => ({
+    articulos: await client.fetch(theQuery, {slug})
+})
 
 export default Tag;
