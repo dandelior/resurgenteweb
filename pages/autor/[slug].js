@@ -3,8 +3,7 @@ import Header from '../../parts/header'
 import HeadMeta from '../../parts/head-meta'
 import Footer from '../../parts/footer';
 import Link from 'next/link';
-// import { useRouter } from 'next/router';
-import groq from 'groq';
+// import groq from 'groq';
 import client from '../../client';
 import imageUrlBuilder from '@sanity/image-url';
 import moment from 'moment'
