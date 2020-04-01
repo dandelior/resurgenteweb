@@ -100,7 +100,9 @@ const Index = (props) => {
                                         <Link href="[slug]" as={`${slug.current}`} key={slug.current}>
                                             <a>
                                                 <h3 className="article-title">
+
                                                     {titulo}
+                                                    
                                                 </h3>
                                             </a>
                                         </Link>
