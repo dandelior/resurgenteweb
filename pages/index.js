@@ -16,7 +16,7 @@ const Index = () => {
                     <img className="icon" src="/img/icon.png" />
                     <h3>Resurgente.com volverá pronto</h3>
                     <p>
-                        Por el momento, Resurgente.com se encuentra inactivo, estamos migrando el contenido a un entorno que nos permita mantener el proyecto con vida. Sentimos los inconvenientes. Por favor, revisa dentro de unos días para tener más información sobre los avances. 
+                        Por el momento, Resurgente.com se encuentra inactivo, estamos migrando el contenido a un entorno que nos permita mantener el proyecto con vida. Sentimos los inconvenientes.
                     </p>
                 </div>
             </div>
@@ -45,7 +45,7 @@ const Index = () => {
                     align-items: center;
                 }
                 .content {
-                    border: solid 1px #454444;
+                    border: solid 1px #e0e0e0;
                     padding: 14% 12%;
                     box-sizing: border-box;
                 }
