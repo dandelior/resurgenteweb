@@ -7,6 +7,7 @@ import groq from 'groq';
 import client from '../client';
 import imageUrlBuilder from '@sanity/image-url';
 import moment from 'moment'
+import HeadScripts from '../parts/head-scripts';
 
 function urlFor (source) {
     return imageUrlBuilder(client).image(source)
@@ -28,6 +29,7 @@ const Index = (props) => {
                 <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Merriweather:300,300i,700,700i&display=swap" rel="stylesheet"></link>
                 <link href="/css/hamburger.min.css" rel="stylesheet"></link>
                 <link href="/css/app.css" rel="stylesheet"></link>
+                <HeadScripts />
             </Head>
 
             <Header />

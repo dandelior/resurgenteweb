@@ -88,7 +88,7 @@ const theQuery = `
             "nombreAutor": autor->nombre, 
             "slugAutor": autor->slug, 
             slug
-        }[0...10]
+        }[0...9]
     }
 `
 
