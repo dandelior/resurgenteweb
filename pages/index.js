@@ -15,9 +15,7 @@ const Index = () => {
                 <div className="content">
                     <img className="icon" src="/img/icon.png" />
                     <h3>Resurgente.com volverá pronto</h3>
-                    <p>
-                        Por el momento, Resurgente.com se encuentra inactivo, estamos migrando el contenido a un entorno que nos permita mantener el proyecto con vida. Sentimos los inconvenientes.
-                    </p>
+                    <p>Por el momento, Resurgente.com se encuentra inactivo, estamos migrando el contenido a un entorno que nos permita mantener el proyecto con vida. Sentimos los inconvenientes.</p>
                 </div>
             </div>
 
